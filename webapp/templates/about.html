@@ -1,0 +1,152 @@
+{% extends "base.html" %}
+
+{% block title %}About - TB Detection System{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <h1 class="mb-4">
+            <i class="fas fa-info-circle text-primary me-2"></i>About TB Detection System
+        </h1>
+    </div>
+</div>
+
+<div class="row g-4">
+    <div class="col-lg-8">
+        <div class="card">
+            <div class="card-body">
+                <h3 class="card-title text-primary">Project Overview</h3>
+                <p class="lead">
+                    An advanced AI-powered system for tuberculosis detection in chest X-ray images, 
+                    developed for research and educational purposes using state-of-the-art deep learning techniques.
+                </p>
+                
+                <h4 class="mt-4">Technical Architecture</h4>
+                <p>
+                    Our system employs a sophisticated two-stage approach:
+                </p>
+                <ul>
+                    <li>
+                        <strong>Stage 1 - Lung Segmentation:</strong> U-Net convolutional neural network 
+                        identifies and segments lung regions from chest X-ray images, reducing noise 
+                        and focusing analysis on relevant anatomical structures.
+                    </li>
+                    <li>
+                        <strong>Stage 2 - TB Classification:</strong> DenseNet121-based classifier 
+                        analyzes the segmented lung regions to detect potential tuberculosis indicators 
+                        with high accuracy and reliability.
+                    </li>
+                </ul>
+
+                <h4 class="mt-4">Model Training & Validation</h4>
+                <p>
+                    The system has been trained using:
+                </p>
+                <ul>
+                    <li>Comprehensive chest X-ray datasets with expert annotations</li>
+                    <li>K-fold cross-validation for robust performance evaluation</li>
+                    <li>Data augmentation techniques to improve generalization</li>
+                    <li>Advanced metrics including accuracy, sensitivity, and specificity</li>
+                </ul>
+
+                <h4 class="mt-4">Key Features</h4>
+                <ul>
+                    <li><strong>High Accuracy:</strong> Trained on large, diverse datasets</li>
+                    <li><strong>Interpretable Results:</strong> Grad-CAM visualizations for transparency</li>
+                    <li><strong>User-Friendly Interface:</strong> Modern web-based application</li>
+                    <li><strong>Research-Focused:</strong> Designed for academic and research use</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-4">
+        <div class="card mb-4">
+            <div class="card-header bg-primary text-white">
+                <h5 class="mb-0">
+                    <i class="fas fa-cogs me-2"></i>Technology Stack
+                </h5>
+            </div>
+            <div class="card-body">
+                <h6>Deep Learning</h6>
+                <ul class="small">
+                    <li>TensorFlow/Keras</li>
+                    <li>U-Net Architecture</li>
+                    <li>DenseNet121</li>
+                    <li>Computer Vision</li>
+                </ul>
+                
+                <h6 class="mt-3">Web Technologies</h6>
+                <ul class="small">
+                    <li>Python Flask</li>
+                    <li>Bootstrap 5</li>
+                    <li>HTML5/CSS3</li>
+                    <li>JavaScript</li>
+                </ul>
+
+                <h6 class="mt-3">Data Processing</h6>
+                <ul class="small mb-0">
+                    <li>OpenCV</li>
+                    <li>PIL/Pillow</li>
+                    <li>NumPy/Matplotlib</li>
+                    <li>Scikit-learn</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header bg-success text-white">
+                <h5 class="mb-0">
+                    <i class="fas fa-users me-2"></i>Research Team
+                </h5>
+            </div>
+            <div class="card-body">
+                <p class="small">
+                    This project was developed as part of academic research in medical AI 
+                    and computer-aided diagnosis systems.
+                </p>
+                <p class="small mb-0">
+                    <strong>Focus Areas:</strong> Machine Learning, Medical Imaging, 
+                    Deep Learning, Computer Vision, Healthcare Technology
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mt-4">
+    <div class="col-12">
+        <div class="alert alert-danger" role="alert">
+            <h4 class="alert-heading">
+                <i class="fas fa-exclamation-triangle me-2"></i>Critical Disclaimer & Legal Notice
+            </h4>
+            <div class="row">
+                <div class="col-md-6">
+                    <h6>Research Purpose Only</h6>
+                    <ul class="mb-3">
+                        <li>This system is designed exclusively for research and educational purposes</li>
+                        <li>It is <strong>NOT</strong> a medical device or diagnostic tool</li>
+                        <li>Results should <strong>NOT</strong> be used for clinical decision-making</li>
+                        <li>The system has not been approved by regulatory medical authorities</li>
+                    </ul>
+                </div>
+                <div class="col-md-6">
+                    <h6>Medical Consultation Required</h6>
+                    <ul class="mb-3">
+                        <li><strong>Always consult qualified healthcare professionals</strong> for medical concerns</li>
+                        <li>This AI system cannot replace professional medical judgment</li>
+                        <li>False positives and false negatives are possible</li>
+                        <li>Seek immediate medical attention if you have symptoms</li>
+                    </ul>
+                </div>
+            </div>
+            <hr>
+            <p class="mb-0">
+                <strong>Legal Responsibility:</strong> Users acknowledge that this system is for research purposes only. 
+                The developers assume no responsibility for any medical decisions or outcomes based on system results. 
+                Professional medical consultation is mandatory for all health-related decisions.
+            </p>
+        </div>
+    </div>
+</div>
+{% endblock %}

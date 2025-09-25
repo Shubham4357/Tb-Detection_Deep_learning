@@ -1,0 +1,11 @@
+Flask
+Pillow
+numpy
+tensorflow
+opencv-python
+matplotlib
+scikit-learn
+Werkzeug
+Jinja2
+gunicorn
+python-dotenv

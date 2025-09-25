@@ -1,0 +1,170 @@
+{% extends "base.html" %}
+
+{% block title %}Analysis Results - TB Detection System{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h2>
+                <i class="fas fa-chart-bar text-primary me-2"></i>Analysis Results
+            </h2>
+            <a href="{{ url_for('upload') }}" class="btn btn-outline-primary">
+                <i class="fas fa-upload me-2"></i>Analyze Another Image
+            </a>
+        </div>
+    </div>
+</div>
+
+<div class="row g-4">
+    <div class="col-lg-4">
+        <div class="card">
+            <div class="card-header bg-secondary text-white">
+                <h5 class="mb-0">
+                    <i class="fas fa-image me-2"></i>Original X-ray
+                </h5>
+            </div>
+            <div class="card-body text-center">
+                <img src="data:image/png;base64,{{ img_data }}" 
+                     alt="Original X-ray" class="img-fluid rounded">
+                <p class="small text-muted mt-2">Analysis timestamp: {{ timestamp }}</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-8">
+        <div class="card">
+            <div class="card-header {% if result.prediction == 'TB Detected' %}bg-danger{% else %}bg-success{% endif %} text-white">
+                <h5 class="mb-0">
+                    <i class="fas {% if result.prediction == 'TB Detected' %}fa-exclamation-triangle{% else %}fa-check-circle{% endif %} me-2"></i>
+                    {{ result.prediction }}
+                </h5>
+            </div>
+            <div class="card-body">
+                <div class="row g-3">
+                    <div class="col-md-4">
+                        <div class="stat-card">
+                            <div class="stat-icon {% if result.tb_probability > 0.5 %}text-danger{% else %}text-success{% endif %}">
+                                <i class="fas fa-percentage"></i>
+                            </div>
+                            <div class="stat-content">
+                                <h4 class="mb-1">{{ "%.1f" | format(result.tb_probability * 100) }}%</h4>
+                                <p class="small mb-0">TB Probability</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="stat-card">
+                            <div class="stat-icon text-info">
+                                <i class="fas fa-chart-line"></i>
+                            </div>
+                            <div class="stat-content">
+                                <h4 class="mb-1">{{ "%.1f" | format(result.confidence * 100) }}%</h4>
+                                <p class="small mb-0">Confidence</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="stat-card">
+                            <div class="stat-icon {% if result.risk_level == 'High' %}text-danger{% elif result.risk_level == 'Medium' %}text-warning{% else %}text-success{% endif %}">
+                                <i class="fas fa-thermometer-half"></i>
+                            </div>
+                            <div class="stat-content">
+                                <h4 class="mb-1">{{ result.risk_level }}</h4>
+                                <p class="small mb-0">Risk Level</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <hr>
+
+                <div class="alert {% if result.prediction == 'TB Detected' %}alert-danger{% else %}alert-success{% endif %}" role="alert">
+                    <h6 class="alert-heading">
+                        <i class="fas fa-stethoscope me-2"></i>Analysis Summary
+                    </h6>
+                    <p class="mb-2">
+                        {% if result.prediction == 'TB Detected' %}
+                            The AI system has detected potential indicators of tuberculosis in the chest X-ray image. 
+                            The analysis shows a <strong>{{ "%.1f" | format(result.tb_probability * 100) }}% probability</strong> 
+                            of TB presence with <strong>{{ result.risk_level.lower() }} risk level</strong>.
+                        {% else %}
+                            The AI system analysis suggests the chest X-ray appears normal with no significant 
+                            indicators of tuberculosis detected. The analysis shows a 
+                            <strong>{{ "%.1f" | format((1 - result.tb_probability) * 100) }}% probability</strong> of normal findings.
+                        {% endif %}
+                    </p>
+                    <hr>
+                    <p class="mb-0">
+                        <strong>⚠️ Important:</strong> This is an AI research tool. All results must be interpreted by qualified 
+                        medical professionals. Seek immediate medical consultation for proper diagnosis and treatment.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mt-4">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header bg-primary text-white">
+                <h5 class="mb-0">
+                    <i class="fas fa-chart-area me-2"></i>Visualization & Risk Assessment
+                </h5>
+            </div>
+            <div class="card-body text-center">
+                <img src="data:image/png;base64,{{ plot_data }}" 
+                     alt="Analysis Visualization" class="img-fluid">
+                <p class="small text-muted mt-2">
+                    AI-generated visualization showing original image and risk assessment levels
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mt-4">
+    <div class="col-md-6">
+        <div class="card border-info">
+            <div class="card-header bg-info text-white">
+                <h6 class="mb-0">
+                    <i class="fas fa-info-circle me-2"></i>Next Steps
+                </h6>
+            </div>
+            <div class="card-body">
+                <ul class="mb-0">
+                    {% if result.prediction == 'TB Detected' %}
+                        <li>Consult a pulmonologist or TB specialist immediately</li>
+                        <li>Get additional diagnostic tests (sputum culture, PCR)</li>
+                        <li>Follow local TB screening protocols</li>
+                        <li>Consider isolation precautions if symptomatic</li>
+                    {% else %}
+                        <li>Continue regular health monitoring</li>
+                        <li>Consult healthcare provider if symptoms persist</li>
+                        <li>Follow standard preventive healthcare guidelines</li>
+                        <li>Seek medical advice for any respiratory symptoms</li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="card border-warning">
+            <div class="card-header bg-warning text-dark">
+                <h6 class="mb-0">
+                    <i class="fas fa-exclamation-triangle me-2"></i>Important Reminders
+                </h6>
+            </div>
+            <div class="card-body">
+                <ul class="mb-0">
+                    <li>This is a research AI system, not a medical device</li>
+                    <li>Results are not a substitute for professional diagnosis</li>
+                    <li>AI can have false positives or false negatives</li>
+                    <li>Always seek qualified medical professional consultation</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
