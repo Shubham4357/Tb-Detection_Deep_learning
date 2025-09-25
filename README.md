@@ -96,6 +96,6 @@ This project is provided for research purposes without warranty. Please read [LI
 
 For questions or collaborations, please contact:
 
-Shubham Deshraj Yadav 
+Shubham Yadav 
 Email: [shubham7418yadav@gmail.com]  
 GitHub: [https://github.com/Shubham4357/]
